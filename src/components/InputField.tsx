@@ -1,18 +1,29 @@
-import './InputField.css';
+import { useRef } from 'react';
 
 interface Props {
   todo: string;
   setTodo: React.Dispatch<React.SetStateAction<string>>;
-  handleAdd: () => void;
+  handleAdd: (e: React.FormEvent) => void;
 }
 
 const InputField: React.FC<Props> = ({ todo, setTodo, handleAdd }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
-    <form className="input">
+    <form
+      className="input"
+      onSubmit={(e) => {
+        handleAdd(e);
+        //shift focus from input box to remove :focus styles
+        inputRef.current?.blur();
+      }}
+    >
       <input
+        ref={inputRef}
         type="text"
         placeholder="Enter a task"
         className="input__box"
+        value={todo}
         onChange={(e) => {
           setTodo(e.target.value);
         }}
@@ -25,5 +36,3 @@ const InputField: React.FC<Props> = ({ todo, setTodo, handleAdd }) => {
 };
 
 export default InputField;
-
-// alternate const InputField = ({ todo, setTodo, handleAdd }: Props) => {}
