@@ -11,9 +11,12 @@ const TodoList = ({ todos, setTodos }: Props) => {
     <div className="todos">
       {todos.map(
         (todo): JSX.Element => (
-          <li key={todo.id}>
-            <SingleTodo />
-          </li>
+          <SingleTodo
+            key={todo.id}
+            todo={todo}
+            todos={todos}
+            setTodos={setTodos}
+          />
         )
       )}
     </div>
@@ -21,6 +24,3 @@ const TodoList = ({ todos, setTodos }: Props) => {
 };
 
 export default TodoList;
-
-//  goto - react-icons.github.io/react-icons-search?q=edit
-// 45:28
