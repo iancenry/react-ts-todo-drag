@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
+import { TodoContext } from '../context';
 import { Todo } from '../model';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import { MdDone } from 'react-icons/md';
@@ -7,11 +8,10 @@ import { Draggable } from 'react-beautiful-dnd';
 type Props = {
   index: number;
   todo: Todo;
-  todos: Todo[];
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 };
 
-const SingleTodo = ({ index, todo, todos, setTodos }: Props) => {
+const SingleTodo = ({ index, todo }: Props) => {
+  const { todos, setTodos } = useContext(TodoContext);
   const [edit, setEdit] = useState<boolean>(false);
   const [editTodo, setEditTodo] = useState<string>(todo.todo);
   const inputRef = useRef<HTMLInputElement>(null);

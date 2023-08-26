@@ -1,13 +1,13 @@
-import { useRef } from 'react';
+import { useRef, useContext } from 'react';
+import { TodoContext } from '../context';
 
 interface Props {
-  todo: string;
-  setTodo: React.Dispatch<React.SetStateAction<string>>;
   handleAdd: (e: React.FormEvent) => void;
 }
 
-const InputField: React.FC<Props> = ({ todo, setTodo, handleAdd }) => {
+const InputField: React.FC<Props> = ({ handleAdd }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const { todo, setTodo } = useContext(TodoContext);
 
   return (
     <form

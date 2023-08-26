@@ -1,20 +1,10 @@
 import { Droppable } from 'react-beautiful-dnd';
-import { Todo } from '../model';
 import SingleTodo from './SingleTodo';
+import { useContext } from 'react';
+import { TodoContext } from '../context';
 
-interface Props {
-  todos: Todo[];
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-  completedTodos: Todo[];
-  setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-}
-
-const TodoList = ({
-  todos,
-  setTodos,
-  completedTodos,
-  setCompletedTodos,
-}: Props) => {
+const TodoList = () => {
+  const { todos, completedTodos } = useContext(TodoContext);
   return (
     <div className="container">
       <Droppable droppableId="TodosList">
@@ -27,13 +17,7 @@ const TodoList = ({
             <span className="todos__heading">Active Tasks</span>
             {todos.map(
               (todo, index): JSX.Element => (
-                <SingleTodo
-                  index={index}
-                  key={todo.id}
-                  todo={todo}
-                  todos={todos}
-                  setTodos={setTodos}
-                />
+                <SingleTodo index={index} key={todo.id} todo={todo} />
               )
             )}
             {provided.placeholder}
@@ -52,13 +36,7 @@ const TodoList = ({
             <span className="todos__heading">Completed Tasks</span>
             {completedTodos.map(
               (todo, index): JSX.Element => (
-                <SingleTodo
-                  index={index}
-                  key={todo.id}
-                  todo={todo}
-                  todos={completedTodos}
-                  setTodos={setCompletedTodos}
-                />
+                <SingleTodo index={index} key={todo.id} todo={todo} />
               )
             )}
             {provided.placeholder}
