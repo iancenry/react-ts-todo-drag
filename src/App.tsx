@@ -1,15 +1,26 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import './App.css';
 import InputField from './components/InputField';
 import { Todo } from './model';
 import TodoList from './components/TodoList';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { TodoContext } from './context';
+import { TodoContext, ContextProps } from './context';
 
 const App: React.FC = () => {
   const [todo, setTodo] = useState<string>('');
   const [todos, setTodos] = useState<Todo[]>([]);
   const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
+  const contextProviderValues: ContextProps = useMemo(
+    () => ({
+      todo,
+      todos,
+      setTodo,
+      setTodos,
+      completedTodos,
+      setCompletedTodos,
+    }),
+    [todo, todos, setTodo, setTodos, completedTodos, setCompletedTodos]
+  );
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,26 +66,12 @@ const App: React.FC = () => {
   };
 
   return (
-    <TodoContext.Provider
-      value={{
-        todo,
-        todos,
-        setTodo,
-        setTodos,
-        completedTodos,
-        setCompletedTodos,
-      }}
-    >
+    <TodoContext.Provider value={contextProviderValues}>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="app">
           <span className="app__heading">Taskify</span>
           <InputField handleAdd={handleAdd} />
-          <TodoList
-            todos={todos}
-            setTodos={setTodos}
-            completedTodos={completedTodos}
-            setCompletedTodos={setCompletedTodos}
-          />
+          <TodoList />
         </div>
       </DragDropContext>
     </TodoContext.Provider>
