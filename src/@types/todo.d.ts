@@ -1,7 +1,10 @@
-import { createContext } from 'react';
-import { Todo } from './model';
+export interface ITodo {
+  id: number;
+  todo: string;
+  isDone: boolean;
+}
 
-export interface ContextProps {
+export interface IContextProps {
   todo: string;
   todos: Todo[];
   setTodo: React.Dispatch<React.SetStateAction<string>>;
@@ -9,5 +12,3 @@ export interface ContextProps {
   completedTodos: Todo[];
   setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
-
-export const TodoContext = createContext<ContextProps>({} as ContextProps);
