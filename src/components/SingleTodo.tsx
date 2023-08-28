@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState, useContext } from 'react';
-import { TodoContext } from '../context';
-import { Todo } from '../model';
+import { TodoContext } from '../context/todoContext';
+import { ITodo } from '../@types/todo';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import { MdDone } from 'react-icons/md';
 import { Draggable } from 'react-beautiful-dnd';
 
 type Props = {
   index: number;
-  todo: Todo;
+  todo: ITodo;
 };
 
 const SingleTodo = ({ index, todo }: Props) => {

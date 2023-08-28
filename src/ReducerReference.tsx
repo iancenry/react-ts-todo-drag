@@ -1,5 +1,5 @@
 //just a reference if need be - useReducer alternative - SingleTodo.tsx
-import { Todo } from './model';
+import { ITodo } from './@types/todo';
 import { useReducer } from 'react';
 
 type Actions =
@@ -7,7 +7,7 @@ type Actions =
   | { type: 'remove'; payload: number }
   | { type: 'done'; payload: number };
 
-const TodoReducer = (state: Todo[], action: Actions) => {
+const TodoReducer = (state: ITodo[], action: Actions) => {
   switch (action.type) {
     case 'add':
       return [

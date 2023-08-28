@@ -1,5 +1,5 @@
 import { useRef, useContext } from 'react';
-import { TodoContext } from '../context';
+import { TodoContext } from '../context/todoContext';
 
 interface Props {
   handleAdd: (e: React.FormEvent) => void;

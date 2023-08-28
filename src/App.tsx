@@ -1,16 +1,16 @@
 import { useState, useMemo } from 'react';
 import './App.css';
 import InputField from './components/InputField';
-import { Todo } from './model';
+import { ITodo, IContextProps } from './@types/todo';
 import TodoList from './components/TodoList';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { TodoContext, ContextProps } from './context';
+import { TodoContext } from './context/todoContext';
 
 const App: React.FC = () => {
   const [todo, setTodo] = useState<string>('');
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
-  const contextProviderValues: ContextProps = useMemo(
+  const [todos, setTodos] = useState<ITodo[]>([]);
+  const [completedTodos, setCompletedTodos] = useState<ITodo[]>([]);
+  const contextProviderValues: IContextProps = useMemo(
     () => ({
       todo,
       todos,
