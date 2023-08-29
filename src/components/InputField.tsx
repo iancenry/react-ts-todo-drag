@@ -1,13 +1,20 @@
 import { useRef, useContext } from 'react';
 import { TodoContext } from '../context/todoContext';
 
-interface Props {
-  handleAdd: (e: React.FormEvent) => void;
-}
-
-const InputField: React.FC<Props> = ({ handleAdd }) => {
+const InputField: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { todo, setTodo } = useContext(TodoContext);
+  const { todo, setTodo, setTodos } = useContext(TodoContext);
+
+  const handleAdd = (e: React.FormEvent): void => {
+    e.preventDefault();
+    if (todo) {
+      setTodos((prevtodos) => [
+        ...prevtodos,
+        { id: Date.now(), todo, isDone: false },
+      ]);
+      setTodo('');
+    }
+  };
 
   return (
     <form
