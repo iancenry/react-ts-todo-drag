@@ -5,7 +5,7 @@ import TodoProvider from './context/todoContext';
 import ThemeWrapper from './components/ThemeWrapper';
 import ThemeProvider from './context/themeContext';
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <ThemeProvider>
       <TodoProvider>
