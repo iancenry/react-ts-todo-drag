@@ -1,10 +1,14 @@
-import { createContext, useMemo, useState } from 'react';
+import { ReactNode, createContext, useMemo, useState } from 'react';
 import { IContextProps, ITodo } from '../@types/todo';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
+type ThemeContentProps = {
+  children: ReactNode;
+};
+
 export const TodoContext = createContext<IContextProps>({} as IContextProps);
 
-const TodoProvider = ({ children }: { children: React.ReactNode }) => {
+const TodoProvider = ({ children }: ThemeContentProps) => {
   const [todo, setTodo] = useState<string>('');
   const [todos, setTodos] = useState<ITodo[]>([]);
   const [completedTodos, setCompletedTodos] = useState<ITodo[]>([]);

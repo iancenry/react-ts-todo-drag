@@ -1,8 +1,12 @@
-import { useContext } from 'react';
+import { useContext, ReactNode } from 'react';
 import { ThemeContextType, Theme } from '../@types/theme';
 import { ThemeContext } from '../context/themeContext';
 
-const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
+type ThemeWrapperProps = {
+  children: ReactNode;
+};
+
+const ThemeWrapper = ({ children }: ThemeWrapperProps) => {
   const { theme, changeTheme } = useContext(ThemeContext) as ThemeContextType;
   const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     changeTheme(event.target.value as Theme);
