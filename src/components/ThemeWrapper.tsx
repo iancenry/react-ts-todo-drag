@@ -15,7 +15,11 @@ const ThemeWrapper = ({ children }: ThemeWrapperProps) => {
   return (
     <div
       data-theme={theme}
-      style={{ background: theme === 'light' ? 'white' : '#242424' }}
+      style={{
+        background: theme === 'light' ? 'white' : '#242424',
+        marginTop: -8,
+        marginLeft: -8,
+      }}
     >
       <select name="toggleTheme" onChange={handleThemeChange}>
         <option value="light">Light</option>
