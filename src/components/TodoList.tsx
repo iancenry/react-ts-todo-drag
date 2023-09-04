@@ -1,6 +1,6 @@
 import { Droppable } from 'react-beautiful-dnd';
 import SingleTodo from './SingleTodo';
-import { useContext } from 'react';
+import { ReactElement, useContext } from 'react';
 import { TodoContext } from '../context/todoContext';
 
 const TodoList = () => {
@@ -16,7 +16,7 @@ const TodoList = () => {
           >
             <span className="todos__heading">Active Tasks</span>
             {todos.map(
-              (todo, index): JSX.Element => (
+              (todo, index): ReactElement => (
                 <SingleTodo index={index} key={todo.id} todo={todo} />
               )
             )}
@@ -35,7 +35,7 @@ const TodoList = () => {
           >
             <span className="todos__heading">Completed Tasks</span>
             {completedTodos.map(
-              (todo, index): JSX.Element => (
+              (todo, index): ReactElement => (
                 <SingleTodo index={index} key={todo.id} todo={todo} />
               )
             )}

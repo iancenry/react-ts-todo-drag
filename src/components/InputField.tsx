@@ -1,19 +1,18 @@
 import { useRef, useContext } from 'react';
 import { TodoContext } from '../context/todoContext';
 
-const InputField: React.FC = () => {
+const InputField = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { todo, setTodo, setTodos } = useContext(TodoContext);
 
   const handleAdd = (e: React.FormEvent): void => {
     e.preventDefault();
-    if (todo) {
-      setTodos((prevtodos) => [
-        ...prevtodos,
-        { id: Date.now(), todo, isDone: false },
-      ]);
-      setTodo('');
-    }
+
+    setTodos((prevtodos) => [
+      ...prevtodos,
+      { id: Date.now(), todo, isDone: false },
+    ]);
+    setTodo('');
   };
 
   return (
@@ -31,7 +30,7 @@ const InputField: React.FC = () => {
         placeholder="Enter a task"
         className="input__box"
         value={todo}
-        onChange={(e) => {
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setTodo(e.target.value);
         }}
       />

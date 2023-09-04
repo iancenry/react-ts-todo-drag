@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useContext } from 'react';
+import { useEffect, useRef, useState, useContext, FormEvent } from 'react';
 import { TodoContext } from '../context/todoContext';
 import { ITodo } from '../@types/todo';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
@@ -11,27 +11,29 @@ type Props = {
 };
 
 const SingleTodo = ({ index, todo }: Props) => {
-  const { todos, setTodos } = useContext(TodoContext);
+  const { setTodos } = useContext(TodoContext);
   const [edit, setEdit] = useState<boolean>(false);
   const [editTodo, setEditTodo] = useState<string>(todo.todo);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleDone = (id: number) => {
-    setTodos(
-      todos.map((todo) =>
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
         todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
       )
     );
   };
 
   const handleDelete = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
-  const handleEdit = (e: React.FormEvent, id: number) => {
+  const handleEdit = (e: FormEvent, id: number) => {
     e.preventDefault();
-    setTodos(
-      todos.map((todo) => (todo.id === id ? { ...todo, todo: editTodo } : todo))
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, todo: editTodo } : todo
+      )
     );
     setEdit(false);
   };
@@ -39,6 +41,16 @@ const SingleTodo = ({ index, todo }: Props) => {
   useEffect(() => {
     inputRef.current?.focus();
   }, [edit]);
+
+  const handleEditDone = () => {
+    if (todo.isDone) {
+      // add strikethorugh
+      return <s className="todos__single--text">{todo.todo}</s>;
+    } else {
+      //display as plain text
+      return <span className="todos__single--text">{todo.todo}</span>;
+    }
+  };
 
   return (
     <Draggable draggableId={todo.id.toString()} index={index}>
@@ -58,10 +70,8 @@ const SingleTodo = ({ index, todo }: Props) => {
               value={editTodo}
               onChange={(e) => setEditTodo(e.target.value)}
             />
-          ) : todo.isDone ? (
-            <s className="todos__single--text">{todo.todo}</s>
           ) : (
-            <span className="todos__single--text">{todo.todo}</span>
+            handleEditDone()
           )}
 
           <div style={{ display: 'flex' }}>
